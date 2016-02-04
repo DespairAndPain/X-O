@@ -13,12 +13,8 @@ app.use(express.static(__dirname + '/public'));
 var numUsers = 0;
 
 io.on('connection', function(socket) {
-	console.log('connect');
-	socket.on('click', function(data) {
-		console.log(data.username);
-		console.log('Thats');
-		socket.broadcast.emit('login', data);
-	});
+	numUsers=numUsers+1;
+	
 
 	socket.on('field config', function(data) {
 		console.log('config coming');
@@ -27,7 +23,9 @@ io.on('connection', function(socket) {
 
 	socket.on('click on field', function(data) {
 		console.log(data.id);
-		socket.broadcast.emit('click from other player', data);
+		console.log(data.side);
+
+		socket.broadcast.emit('click from other player',data);
 	});
 });
 
