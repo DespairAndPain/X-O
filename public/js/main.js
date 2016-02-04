@@ -9,7 +9,7 @@ $(function() {
     function makeField (width, lenght, side) {
 
         var n = 0;
-        
+
         for (var i = 1;i<=width;i++) {
             $field.append('<ul class=" ul' + i + '">');
 
@@ -39,45 +39,65 @@ $(function() {
                 console.log(side);
                 socket.emit('click on field', {'id':attr, 'side': ''+side+''});
 
+                var len = $('.btn-danger').length;
+                var items = $('.btn-danger');
+                var objLocation = {};
+                var n = 0;
+
+                function objMaker (arr, iter) {
+                    objLocation[''+iter+'']= arr;
+                    
+                }
+
+                for (var i = 0;i<items.length;i++) {
+                    items.each(function() { 
+                        var arrLocation = $(this).attr('id').split('_');
+                        objMaker(arrLocation, i);
+
+                    });
+                    
+                }
+
+                console.log(objLocation);
             });
+}
+
+
+socket.on('click from other player', function(data) {
+
+    console.log("click is come from the other side");
+    if (data.side === 'red') {
+        $('#'+ data.id +'').addClass('btn-danger');
+    }
+    if (data.side === 'blue') {
+        $('#'+ data.id +'').addClass('btn-primary');
     }
 
-
-    socket.on('click from other player', function(data) {
-
-        console.log("click is come from the other side");
-        if (data.side === 'red') {
-            $('#'+ data.id +'').addClass('btn-danger');
-        }
-        if (data.side === 'blue') {
-            $('#'+ data.id +'').addClass('btn-primary');
-        }
-
-    });
+});
 
 
-    socket.on('configForOther', function(data) {
-        var lenght = data.lenght;
-        var width = data.width; 
+socket.on('configForOther', function(data) {
+    var lenght = data.lenght;
+    var width = data.width; 
 
-        makeField(width, lenght, 'blue');
-        console.log('Config is come');
-    });
+    makeField(width, lenght, 'blue');
+    console.log('Config is come');
+});
 
 
-    $('.op2').click(function () {
+$('.op2').click(function () {
 
-        console.log('sdadsa');  
-        var lenght = $('.lenght').val();
-        var width = $('.width').val();  
+    console.log('sdadsa');  
+    var lenght = $('.lenght').val();
+    var width = $('.width').val();  
 
-        makeField(width, lenght, 'red');
+    makeField(width, lenght, 'red');
 
-        socket.emit('field config', {'lenght': lenght,
-            'width' : width});
+    socket.emit('field config', {'lenght': lenght,
+        'width' : width});
 
-        console.log('Config is out');
-    });
+    console.log('Config is out');
+});
 
 
 
