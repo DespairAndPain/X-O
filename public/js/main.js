@@ -49,19 +49,49 @@ $(function() {
                     
                 }
 
-                for (var i = 0;i<items.length;i++) {
-                    items.each(function() { 
-                        var arrLocation = $(this).attr('id').split('_');
-                        objMaker(arrLocation, i);
+                items.each(function() {
 
-                    });
+                    var arrLocation = $(this).attr('id').split('_');
+                    n++;
+                    objMaker(arrLocation, n)
+                })
                     
-                }
+                    //var arrLocation = $(i).attr('id').split('_');
+                    //objMaker(arrLocation, i);
+
+                
 
                 console.log(objLocation);
-            });
-}
 
+                //checkLocationFunc(objLocation);
+
+            });
+
+        }
+
+function checkLocationFunc(obj) {
+    //for (i in obj) {
+    //    obj[''+ i +''][0] 
+    //    for (i in op) {console.log(op[''+i+''][0]);}
+    //
+
+    for (pp in obj) {
+        var p = 0;
+        var checkedX = obj[''+ p +''][0];
+        var numb = 0;
+        for (zz in obj) {
+            var z = 0;
+            
+            if (obj[''+ z +''][0] === checkedX) {
+                numb++;
+            }
+
+            z++;
+        }
+        p++;
+    }
+    console.log('21212121');
+}
 
 socket.on('click from other player', function(data) {
 
