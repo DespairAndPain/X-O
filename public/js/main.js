@@ -55,42 +55,57 @@ $(function() {
                     n++;
                     objMaker(arrLocation, n)
                 })
-                    
-                    //var arrLocation = $(i).attr('id').split('_');
-                    //objMaker(arrLocation, i);
-
                 
 
                 console.log(objLocation);
 
-                //checkLocationFunc(objLocation);
+                checkLocationFunc(objLocation);
 
             });
 
-        }
+}
 
 function checkLocationFunc(obj) {
     //for (i in obj) {
     //    obj[''+ i +''][0] 
     //    for (i in op) {console.log(op[''+i+''][0]);}
     //
+    var maxVar = 0;
 
     for (pp in obj) {
-        var p = 0;
-        var checkedX = obj[''+ p +''][0];
+        var checkedX = obj[''+ pp +''][0];
         var numb = 0;
+
+        console.log(checkedX + ' checkedX');
+
         for (zz in obj) {
-            var z = 0;
-            
-            if (obj[''+ z +''][0] === checkedX) {
-                numb++;
+            if (zz !== pp) {
+                console.log(obj[''+ zz +''][0]+ ' 2 level');
+                if (obj[''+ zz +''][0] === checkedX) {
+                    numb++;
+                    console.log('true');
+                    console.log(obj[''+ pp +''][0]+ '  +1 sss  ' + (parseInt(obj[''+ pp +''][1])+1));
+                    console.log(obj[''+ zz +''][0]+ '  sss  ' + obj[''+ zz +''][1]);
+                    if ( (parseInt(obj[''+ pp +''][1])+1) == obj[''+ zz +''][1]) {
+                        console.log('YEAH'+zz);
+                    }
+                }
             }
 
-            z++;
+
         }
-        p++;
-    }
-    console.log('21212121');
+        console.log(pp + ' obj');
+        console.log(numb + ' numb');
+
+        if (maxVar < numb) {
+            maxVar = numb;
+        }
+
+        
+
+    }   
+    console.log(maxVar + ' max numb');
+
 }
 
 socket.on('click from other player', function(data) {
