@@ -99,7 +99,7 @@ function checkLocationFunc(obj) {
                                                 if (cc !== pp && cc !== zz && cc !== xx) {
 
                                                     if ( (parseInt(obj[''+ xx +''][1])+1) === parseInt(obj[''+ cc +''][1])) {
-                                                        
+
                                                         for (vv in obj) {
 
                                                             if (obj[''+ vv +''][0] === check) {
@@ -124,11 +124,189 @@ function checkLocationFunc(obj) {
                 }
             }
 
+        }   
+    }
 
+    
+    for (pp in obj) {
+        var check = obj[''+ pp +''][1];
+        var numb = 0;
 
+        for (zz in obj) {
 
-    }   
-    console.log(maxVar + ' max numb');
+            if (zz !== pp) {
+
+                if (obj[''+ zz +''][1] === check) {
+
+                    if ( (parseInt(obj[''+ pp +''][0])+1) == obj[''+ zz +''][0]) {
+
+                        for (xx in obj) {
+
+                            if (obj[''+ xx +''][1] === check) {
+
+                                if (xx !== pp && xx !== zz) {
+
+                                    if ( (parseInt(obj[''+ zz +''][0])+1) === parseInt(obj[''+ xx +''][0])) {
+
+                                        for (cc in obj) {
+
+                                            if (obj[''+ cc +''][1] === check) {
+
+                                                if (cc !== pp && cc !== zz && cc !== xx) {
+
+                                                    if ( (parseInt(obj[''+ xx +''][0])+1) === parseInt(obj[''+ cc +''][0])) {
+
+                                                        for (vv in obj) {
+
+                                                            if (obj[''+ vv +''][1] === check) {
+
+                                                                if (vv !== pp && cc !== zz && vv !== xx && vv !== cc) {
+
+                                                                    if ( (parseInt(obj[''+ cc +''][0])+1) === parseInt(obj[''+ vv +''][0])) {
+                                                                        alert("WIN");
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }   
+    }
+
+    for (pp in obj) {
+        var checkX = parseInt(obj[''+ pp +''][1]);
+        var checkY = parseInt(obj[''+ pp +''][0]);
+        var numb = 0;
+
+        for (zz in obj) {
+
+            if (zz !== pp) {
+
+                if (parseInt(obj[''+ zz +''][1]) === (checkX + 1) && 
+                    parseInt(obj[''+ zz +''][0]) === (checkY + 1)) {
+
+                    checkX = parseInt(obj[''+ zz +''][1]);
+                    checkY = parseInt(obj[''+ zz +''][0]);
+
+                    for (xx in obj) {
+
+                        if (xx !== pp & xx !== zz) {
+
+                            if (parseInt(obj[''+ xx +''][1]) === (checkX + 1) && 
+                                parseInt(obj[''+ xx +''][0]) === (checkY + 1)) {
+
+                                checkX = parseInt(obj[''+ xx +''][1]);
+                                checkY = parseInt(obj[''+ xx +''][0]);
+
+                                for (cc in obj) {
+
+                                    if (cc !== pp & cc !== zz & cc !== xx) {
+
+                                        if (parseInt(obj[''+ cc +''][1]) === (checkX + 1) && 
+                                            parseInt(obj[''+ cc +''][0]) === (checkY + 1)) {
+
+                                            checkX = parseInt(obj[''+ cc +''][1]);
+                                            checkY = parseInt(obj[''+ cc +''][0]);
+
+                                            for (vv in obj) {
+
+                                                if (vv !== pp & vv !== zz & vv !== xx) {
+
+                                                    if (parseInt(obj[''+ vv +''][1]) === (checkX + 1) && 
+                                                        parseInt(obj[''+ vv +''][0]) === (checkY + 1)) {
+
+                                                        checkX = parseInt(obj[''+ vv +''][1]);
+                                                        checkY = parseInt(obj[''+ vv +''][0]);
+
+                                                        alert(1);
+                                                    }
+                                                }
+                                            }
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }       
+    
+    for (pp in obj) {
+        var checkX = parseInt(obj[''+ pp +''][1]);
+        var checkY = parseInt(obj[''+ pp +''][0]);
+        var numb = 0;
+
+        for (zz in obj) {
+
+            if (zz !== pp) {
+
+                if (parseInt(obj[''+ zz +''][1]) === (checkX - 1) && 
+                    parseInt(obj[''+ zz +''][0]) === (checkY + 1)) {
+
+                    checkX = parseInt(obj[''+ zz +''][1]);
+                    checkY = parseInt(obj[''+ zz +''][0]);
+
+                    for (xx in obj) {
+
+                        if (xx !== pp & xx !== zz) {
+
+                            if (parseInt(obj[''+ xx +''][1]) === (checkX - 1) && 
+                                parseInt(obj[''+ xx +''][0]) === (checkY + 1)) {
+
+                                checkX = parseInt(obj[''+ xx +''][1]);
+                                checkY = parseInt(obj[''+ xx +''][0]);
+
+                                for (cc in obj) {
+
+                                    if (cc !== pp & cc !== zz & cc !== xx) {
+
+                                        if (parseInt(obj[''+ cc +''][1]) === (checkX - 1) && 
+                                            parseInt(obj[''+ cc +''][0]) === (checkY + 1)) {
+
+                                            checkX = parseInt(obj[''+ cc +''][1]);
+                                            checkY = parseInt(obj[''+ cc +''][0]);
+
+                                            for (vv in obj) {
+
+                                                if (vv !== pp & vv !== zz & vv !== xx) {
+
+                                                    if (parseInt(obj[''+ vv +''][1]) === (checkX - 1) && 
+                                                        parseInt(obj[''+ vv +''][0]) === (checkY + 1)) {
+
+                                                        checkX = parseInt(obj[''+ vv +''][1]);
+                                                        checkY = parseInt(obj[''+ vv +''][0]);
+
+                                                        alert(1);
+                                                    }
+                                                }
+                                            }
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }     
+
+console.log(maxVar + ' max numb');
 
 }
 
