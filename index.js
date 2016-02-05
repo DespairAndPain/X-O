@@ -10,10 +10,8 @@ server.listen(port, function () {
 
 app.use(express.static(__dirname + '/public'));
 
-var numUsers = 0;
 
 io.on('connection', function(socket) {
-	numUsers=numUsers+1;
 	
 
 	socket.on('field config', function(data) {

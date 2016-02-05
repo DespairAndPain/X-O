@@ -5,6 +5,7 @@ $(function() {
     var $playerStatus = $('.playerStatus');
     var $field = $('.field');
     var secondPlayer = false;
+    $('.playField').hide();
 
     function makeField (width, lenght, side) {
 
@@ -344,6 +345,9 @@ $('.op2').click(function () {
         'width' : width});
 
     console.log('Config is out');
+
+    setTimeout($('.config').fadeOut(), 2000);
+    $('.playField').fadeIn();
 });
 
 
