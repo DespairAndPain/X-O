@@ -6,6 +6,10 @@ $(function() {
     var $field = $('.field');
     var secondPlayer = false;
     $('.playField').hide();
+    $('.red').hide();
+    $('.blue').hide();
+    $('.waitBlue').hide();
+    $('.waitRed').hide();
 
     function makeField (width, lenght, side) {
 
@@ -40,8 +44,15 @@ $(function() {
                 console.log(side);
                 socket.emit('click on field', {'id':attr, 'side': ''+side+''});
 
-                var len = $('.btn-danger').length;
-                var items = $('.btn-danger');
+                if (side==='red') {
+                    var len = $('.btn-danger').length;
+                    var items = $('.btn-danger');
+                } 
+
+                if (side==='blue') {
+                    var len = $('.btn-primary').length;
+                    var items = $('.btn-primary');
+                }
                 var objLocation = {};
                 var n = 0;
 
@@ -62,19 +73,26 @@ $(function() {
 
                 checkLocationFunc(objLocation);
 
+                if (side==='red') {
+                    $('.waitBlue').show();
+                } 
+
+                if (side==='blue') {
+                    $('.waitRed').show();
+                }
+                
+
             });
 
 }
 
 function checkLocationFunc(obj) {
 
-    var maxVar = 0;
-
+    var win = false;
 
     //Извините
     for (pp in obj) {
         var check = obj[''+ pp +''][0];
-        var numb = 0;
 
 
         for (zz in obj) {
@@ -108,7 +126,7 @@ function checkLocationFunc(obj) {
                                                                 if (vv !== pp && cc !== zz && vv !== xx && vv !== cc) {
 
                                                                     if ( (parseInt(obj[''+ cc +''][1])+1) === parseInt(obj[''+ vv +''][1])) {
-                                                                        alert("WIN");
+                                                                        win = true;
                                                                     }
                                                                 }
                                                             }
@@ -131,7 +149,6 @@ function checkLocationFunc(obj) {
     
     for (pp in obj) {
         var check = obj[''+ pp +''][1];
-        var numb = 0;
 
         for (zz in obj) {
 
@@ -164,7 +181,7 @@ function checkLocationFunc(obj) {
                                                                 if (vv !== pp && cc !== zz && vv !== xx && vv !== cc) {
 
                                                                     if ( (parseInt(obj[''+ cc +''][0])+1) === parseInt(obj[''+ vv +''][0])) {
-                                                                        alert("WIN");
+                                                                        win = true;
                                                                     }
                                                                 }
                                                             }
@@ -186,7 +203,6 @@ function checkLocationFunc(obj) {
     for (pp in obj) {
         var checkX = parseInt(obj[''+ pp +''][1]);
         var checkY = parseInt(obj[''+ pp +''][0]);
-        var numb = 0;
 
         for (zz in obj) {
 
@@ -225,10 +241,7 @@ function checkLocationFunc(obj) {
                                                     if (parseInt(obj[''+ vv +''][1]) === (checkX + 1) && 
                                                         parseInt(obj[''+ vv +''][0]) === (checkY + 1)) {
 
-                                                        checkX = parseInt(obj[''+ vv +''][1]);
-                                                        checkY = parseInt(obj[''+ vv +''][0]);
-
-                                                        alert(1);
+                                                        win = true;
                                                     }
                                                 }
                                             }
@@ -287,10 +300,7 @@ function checkLocationFunc(obj) {
                                                     if (parseInt(obj[''+ vv +''][1]) === (checkX - 1) && 
                                                         parseInt(obj[''+ vv +''][0]) === (checkY + 1)) {
 
-                                                        checkX = parseInt(obj[''+ vv +''][1]);
-                                                        checkY = parseInt(obj[''+ vv +''][0]);
-
-                                                        alert(1);
+                                                        win = true;
                                                     }
                                                 }
                                             }
@@ -307,7 +317,9 @@ function checkLocationFunc(obj) {
         }
     }     
 
-console.log(maxVar + ' max numb');
+if (win) {
+    alert("You'r WIN!!!");
+}
 
 }
 
@@ -316,10 +328,14 @@ socket.on('click from other player', function(data) {
     console.log("click is come from the other side");
     if (data.side === 'red') {
         $('#'+ data.id +'').addClass('btn-danger');
+        $('.waitRed').hide();
     }
     if (data.side === 'blue') {
         $('#'+ data.id +'').addClass('btn-primary');
+        $('.waitBlue').hide();
     }
+
+
 
 });
 
@@ -330,6 +346,10 @@ socket.on('configForOther', function(data) {
 
     makeField(width, lenght, 'blue');
     console.log('Config is come');
+    $('.config').fadeOut();
+    $('.blue').fadeIn();
+    $('.playField').fadeIn();
+
 });
 
 
@@ -346,8 +366,10 @@ $('.op2').click(function () {
 
     console.log('Config is out');
 
-    setTimeout($('.config').fadeOut(), 2000);
+    $('.config').fadeOut();
     $('.playField').fadeIn();
+    $('.red').fadeIn();
+
 });
 
 

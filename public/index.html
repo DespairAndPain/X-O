@@ -3,6 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Cross and Zeros</title>
+	
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="bower_components/socket.io-client/socket.io.js"></script>
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<style>
 		.container {
 			padding: 30px;
@@ -14,13 +18,29 @@
 			height: 30px;
 			margin-right: 5px;
 		}
+		
+		.blue {
+			background-color: #001AFF;
+			color: #FFF;
+		}
+
+		.red {
+			background-color: #F00;
+			color: #FFF;
+		}
 
 	</style>
 </head>
 <body>
-	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	
+	<div class="container red">
+		<h1>You'r played for RED</h1>
+	</div>
+	
+	<div class="container blue">
+		<h1>You'r played for BLUE</h1>
+	</div>
 
 	<div class="container">
 
@@ -37,6 +57,8 @@
 
 			<input type="submit" class="btn btn-default op2" value="Touch">
 		</div>
+		<div class="waitRed"><h3>Waiting for <span style='color:#F00'>RED</span> player</h3></div>
+		<div class="waitBlue"><h3>Waiting for <span style='color: #001AFF'>BLUE</span> player</h3></div>
 		<div class="container playField">
 			<div class="container field">
 

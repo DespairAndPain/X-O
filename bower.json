@@ -1,0 +1,20 @@
+{
+  "name": "crossandzero",
+  "description": "",
+  "main": "index.js",
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.2.0",
+    "bootstrap": "~3.3.6",
+    "socket.io-client": "~1.4.5"
+  }
+}
