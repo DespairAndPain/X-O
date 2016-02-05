@@ -10,6 +10,7 @@ $(function() {
     $('.blue').hide();
     $('.waitBlue').hide();
     $('.waitRed').hide();
+    $('.youTurn').hide();
 
     function makeField (width, lenght, side) {
 
@@ -26,7 +27,10 @@ $(function() {
             }
             $field.append('</ul>');
         }
-
+        if (side==='blue') {
+            $('.waitRed').show();
+        }
+        $('.size').hide();
         $field.delegate('li', 
             'click',  function() {
 
@@ -81,6 +85,7 @@ $(function() {
                     $('.waitRed').show();
                 }
                 
+                $('.youTurn').hide();
 
             });
 
@@ -319,9 +324,22 @@ function checkLocationFunc(obj) {
 
 if (win) {
     alert("You'r WIN!!!");
+    socket.emit('you lose');
 }
 
+
+
 }
+
+socket.on('lose', function() {
+    $('.red').hide();
+    $('.blue').hide();
+    $('.waitBlue').hide();
+    $('.waitRed').hide();
+    $('.youTurn').hide();
+
+    alert('You lose (');
+})
 
 socket.on('click from other player', function(data) {
 
@@ -335,7 +353,8 @@ socket.on('click from other player', function(data) {
         $('.waitBlue').hide();
     }
 
-
+    $('.youTurn').show();
+    $('.size').hide();
 
 });
 
@@ -369,9 +388,13 @@ $('.op2').click(function () {
     $('.config').fadeOut();
     $('.playField').fadeIn();
     $('.red').fadeIn();
+    $('.youTurn').show();
 
 });
 
+socket.on('other player', function(){
+    alert('Второй игрок подключился');
+})
 
 
 });

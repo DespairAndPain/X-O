@@ -12,7 +12,7 @@ app.use(express.static(__dirname + '/public'));
 
 
 io.on('connection', function(socket) {
-	
+	socket.broadcast.emit('other player');
 
 	socket.on('field config', function(data) {
 		console.log('config coming');
@@ -25,6 +25,10 @@ io.on('connection', function(socket) {
 
 		socket.broadcast.emit('click from other player',data);
 	});
+
+	socket.on('you lose', function() {
+		socket.broadcast.emit('lose');		
+	})
 });
 
 

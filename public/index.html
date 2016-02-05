@@ -8,10 +8,7 @@
 	<script src="bower_components/socket.io-client/socket.io.js"></script>
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<style>
-		.container {
-			padding: 30px;
-			margin: 30px;
-		}
+		
 
 		.btnl {
 			width: 30px;
@@ -29,6 +26,18 @@
 			color: #FFF;
 		}
 
+		.size {
+			text-align: center;
+			color: #000;
+		}
+
+		.field{
+			margin-top:0; 
+			margin-right:auto; 
+			margin-bottom:0; 
+			margin-left:auto;
+		}
+
 	</style>
 </head>
 <body>
@@ -42,25 +51,34 @@
 		<h1>You'r played for BLUE</h1>
 	</div>
 
-	<div class="container">
+	
 
-		
-		<div class="container config">
-			<div class="col-md-6">
-				<input type="text" class="form-control lenght" placeholder='In lenght'>
+	<div class="container-fluid">
+		<div class="container">
+			<div class='size label'>
+				<h1>Please specify the size of the field</h1>
+			</div>
+			<div class="container config">
+
+
+				<div class="col-md-6">
+					<input type="text" class="form-control lenght" placeholder='In lenght'>
+				</div>
+
+				<div class="col-md-6">
+					<input type="text" class="form-control width" placeholder='In width'>
+				</div>
+				<br><br><br>
+
+				<input type="submit" class="btn btn-default op2" value="Touch">
 			</div>
 
-			<div class="col-md-6">
-				<input type="text" class="form-control width" placeholder='In width'>
-			</div>
-			<br><br><br>
-
-			<input type="submit" class="btn btn-default op2" value="Touch">
+			<div class="waitRed"><h3>Waiting for <span style='color:#F00'>RED</span> player</h3></div>
+			<div class="waitBlue"><h3>Waiting for <span style='color: #001AFF'>BLUE</span> player</h3></div>
+			<div class="youTurn"><h3>You turn!</h3></div>
 		</div>
-		<div class="waitRed"><h3>Waiting for <span style='color:#F00'>RED</span> player</h3></div>
-		<div class="waitBlue"><h3>Waiting for <span style='color: #001AFF'>BLUE</span> player</h3></div>
 		<div class="container playField">
-			<div class="container field">
+			<div class="field">
 
 			</div>
 		</div>
