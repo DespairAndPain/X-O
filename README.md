@@ -1,11 +1,11 @@
 #X-O
-=========
+
 Тестовое задание для собеседования.
 
 
 
 ## Использовал для создания
-=====
+
 * Node.js: https://nodejs.org/en/
 * Socket.io: http://socket.io/
 * NPM: https://www.npmjs.com/
