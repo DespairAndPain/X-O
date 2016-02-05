@@ -1,10 +1,10 @@
 $(function() {
-    var connected = false;
+    //подключение socket.io
     var socket = io();
     var $container = $('.container');
     var $playerStatus = $('.playerStatus');
     var $field = $('.field');
-    var secondPlayer = false;
+    //Скрыть элементы информаторы до начала игры
     $('.playField').hide();
     $('.red').hide();
     $('.blue').hide();
@@ -12,11 +12,14 @@ $(function() {
     $('.waitRed').hide();
     $('.youTurn').hide();
 
+    //Создание игрового поля
     function makeField (width, lenght, side) {
 
         var n = 0;
 
+        //Вставка в документ ul и li по конфигам
         for (var i = 1;i<=width;i++) {
+            // id = координаты заданного поля
             $field.append('<ul class=" ul' + i + '">');
 
             for (var y = 1;y<=lenght;y++) {
@@ -27,17 +30,25 @@ $(function() {
             }
             $field.append('</ul>');
         }
+
+        //Показать сообщение о ожидании красного игрока после нажатие кнопки синим
         if (side==='blue') {
             $('.waitRed').show();
         }
+
+        //Убрать надпись о вводе конфигураций поля
         $('.size').hide();
+
+        //Назначения эвента click на созданные li
         $field.delegate('li', 
             'click',  function() {
 
-                console.log('click');
+                // Сбор координат нажатой кнопки в строку
                 var attr = $(this).attr("id");
+                // Преобразование строки в массив их Y координаты и X
                 var arrAttr = attr.split('_');
-                console.log(arrAttr+ '  '+ arrAttr[0]+ '  '+ arrAttr[1]);
+
+                // Красить нажатые кнопки в зависимости от стороны нажавшего
                 if (side==='red') {
                     $(this).addClass('btn-danger');
                 } 
@@ -45,21 +56,22 @@ $(function() {
                 if (side==='blue') {
                     $(this).addClass('btn-primary');
                 }
-                console.log(side);
+
+                // Отправка координат нажатой кнопки второму игроку и стороны
                 socket.emit('click on field', {'id':attr, 'side': ''+side+''});
 
+                // Сбор нажатых кнопок в объект
                 if (side==='red') {
-                    var len = $('.btn-danger').length;
                     var items = $('.btn-danger');
                 } 
 
                 if (side==='blue') {
-                    var len = $('.btn-primary').length;
                     var items = $('.btn-primary');
                 }
                 var objLocation = {};
                 var n = 0;
 
+                // Записывание координат каждой кнопки в объект в виде массива
                 function objMaker (arr, iter) {
                     objLocation[''+iter+'']= arr;
                     
@@ -73,10 +85,10 @@ $(function() {
                 })
                 
 
-                console.log(objLocation);
-
+                // Процедура проверки выйгрыша
                 checkLocationFunc(objLocation);
 
+                // Показать надпись об ожидании другого игрока
                 if (side==='red') {
                     $('.waitBlue').show();
                 } 
@@ -93,8 +105,15 @@ $(function() {
 
 function checkLocationFunc(obj) {
 
+    // Статус выйгрыша
     var win = false;
 
+    // Берётся объект с массивами координат.
+    // Берётся первый объект и ищется второй с такой же координатой X и координатой Y+1 (Стоящий рядом)
+    // Таким образом до 5 последовательно рядом стощих ячеек
+    // Аналогично и остальные (по горизонтали/диагонали)
+
+    //Проверка выйгрыша по горизонтали
     //Извините
     for (pp in obj) {
         var check = obj[''+ pp +''][0];
@@ -151,7 +170,8 @@ function checkLocationFunc(obj) {
         }   
     }
 
-    
+    //Проверка выйгрыша по вертикали
+    //Извините
     for (pp in obj) {
         var check = obj[''+ pp +''][1];
 
@@ -205,6 +225,8 @@ function checkLocationFunc(obj) {
         }   
     }
 
+    //Проверка выйгрыша по диагонали вправо-вниз
+    //Извините
     for (pp in obj) {
         var checkX = parseInt(obj[''+ pp +''][1]);
         var checkY = parseInt(obj[''+ pp +''][0]);
@@ -263,6 +285,8 @@ function checkLocationFunc(obj) {
         }
     }       
     
+    //Проверка выйгрыша по диагонали вправо-вверх
+    //Извините
     for (pp in obj) {
         var checkX = parseInt(obj[''+ pp +''][1]);
         var checkY = parseInt(obj[''+ pp +''][0]);
@@ -331,6 +355,7 @@ if (win) {
 
 }
 
+// Проигравшему отключаются всё кроме сетки
 socket.on('lose', function() {
     $('.red').hide();
     $('.blue').hide();
@@ -341,9 +366,10 @@ socket.on('lose', function() {
     alert('You lose (');
 })
 
+// Реакция на клик противника
 socket.on('click from other player', function(data) {
 
-    console.log("click is come from the other side");
+    // В зависимости от стороны кликнувшего красит кнопки в разные цвета
     if (data.side === 'red') {
         $('#'+ data.id +'').addClass('btn-danger');
         $('.waitRed').hide();
@@ -358,7 +384,7 @@ socket.on('click from other player', function(data) {
 
 });
 
-
+// Реакция на построение сетки от противника, создаёт поле и убирает отсальные элементы
 socket.on('configForOther', function(data) {
     var lenght = data.lenght;
     var width = data.width; 
@@ -371,7 +397,7 @@ socket.on('configForOther', function(data) {
 
 });
 
-
+// Обработчик нажатия кнопки Touch
 $('.op2').click(function () {
 
     console.log('sdadsa');  
@@ -379,7 +405,7 @@ $('.op2').click(function () {
     var width = $('.width').val();  
 
     makeField(width, lenght, 'red');
-
+    // Создаёт поле у себя и у противника
     socket.emit('field config', {'lenght': lenght,
         'width' : width});
 
