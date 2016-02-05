@@ -66,42 +66,66 @@ $(function() {
 }
 
 function checkLocationFunc(obj) {
-    //for (i in obj) {
-    //    obj[''+ i +''][0] 
-    //    for (i in op) {console.log(op[''+i+''][0]);}
-    //
+
     var maxVar = 0;
 
+
+    //Извините
     for (pp in obj) {
-        var checkedX = obj[''+ pp +''][0];
+        var check = obj[''+ pp +''][0];
         var numb = 0;
 
-        console.log(checkedX + ' checkedX');
 
         for (zz in obj) {
+
             if (zz !== pp) {
-                console.log(obj[''+ zz +''][0]+ ' 2 level');
-                if (obj[''+ zz +''][0] === checkedX) {
-                    numb++;
-                    console.log('true');
-                    console.log(obj[''+ pp +''][0]+ '  +1 sss  ' + (parseInt(obj[''+ pp +''][1])+1));
-                    console.log(obj[''+ zz +''][0]+ '  sss  ' + obj[''+ zz +''][1]);
+
+                if (obj[''+ zz +''][0] === check) {
+
                     if ( (parseInt(obj[''+ pp +''][1])+1) == obj[''+ zz +''][1]) {
-                        console.log('YEAH'+zz);
+
+                        for (xx in obj) {
+
+                            if (obj[''+ xx +''][0] === check) {
+
+                                if (xx !== pp && xx !== zz) {
+
+                                    if ( (parseInt(obj[''+ zz +''][1])+1) === parseInt(obj[''+ xx +''][1])) {
+
+                                        for (cc in obj) {
+
+                                            if (obj[''+ cc +''][0] === check) {
+
+                                                if (cc !== pp && cc !== zz && cc !== xx) {
+
+                                                    if ( (parseInt(obj[''+ xx +''][1])+1) === parseInt(obj[''+ cc +''][1])) {
+                                                        
+                                                        for (vv in obj) {
+
+                                                            if (obj[''+ vv +''][0] === check) {
+
+                                                                if (vv !== pp && cc !== zz && vv !== xx && vv !== cc) {
+
+                                                                    if ( (parseInt(obj[''+ cc +''][1])+1) === parseInt(obj[''+ vv +''][1])) {
+                                                                        alert("WIN");
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
 
 
-        }
-        console.log(pp + ' obj');
-        console.log(numb + ' numb');
 
-        if (maxVar < numb) {
-            maxVar = numb;
-        }
-
-        
 
     }   
     console.log(maxVar + ' max numb');
