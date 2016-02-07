@@ -5,7 +5,7 @@ $(function() {
     var $playerStatus = $('.playerStatus');
     var $field = $('.field');
     //Скрыть элементы информаторы до начала игры
-    $('.playField').hide();
+    //$('.playField').hide();
     $('.red').hide();
     $('.blue').hide();
     $('.waitBlue').hide();
@@ -390,7 +390,6 @@ socket.on('configForOther', function(data) {
     var width = data.width; 
 
     makeField(width, lenght, 'blue');
-    console.log('Config is come');
     $('.config').fadeOut();
     $('.blue').fadeIn();
     $('.playField').fadeIn();
@@ -400,7 +399,6 @@ socket.on('configForOther', function(data) {
 // Обработчик нажатия кнопки Touch
 $('.op2').click(function () {
 
-    console.log('sdadsa');  
     var lenght = $('.lenght').val();
     var width = $('.width').val();  
 
@@ -409,12 +407,11 @@ $('.op2').click(function () {
     socket.emit('field config', {'lenght': lenght,
         'width' : width});
 
-    console.log('Config is out');
 
     $('.config').fadeOut();
     $('.playField').fadeIn();
     $('.red').fadeIn();
-    $('.youTurn').show();
+    $('.youTurn').fadeIn();
 
 });
 
